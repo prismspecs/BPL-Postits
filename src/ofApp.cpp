@@ -60,7 +60,7 @@ void ofApp::setup(){
     postits[12].setPos(ofVec2f(3460, 1507));
     
     // or set up as a grid
-    
+    // test !@#!@#
     
     
     // load the post it background images into memory
