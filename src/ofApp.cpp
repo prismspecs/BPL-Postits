@@ -1,14 +1,11 @@
 #include "ofApp.h"
 #include "stdio.h"
 
-#define PSIZE 400
-#define NUM_IMAGES 8
+#define GRID_UNIT 540
 #define NUM_POSTITS 13
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
-    
     
     ofSetWindowTitle("BPL");
     
@@ -17,9 +14,14 @@ void ofApp::setup(){
     
     ofEnableAlphaBlending();
     //ofSetVerticalSync(true);
-
-    fbo_overlay.allocate(4400, 2200, GL_RGBA);
-    fbo_multiply.allocate(4400, 2200, GL_RGBA);
+    
+    if(GRID) {
+        fbo_overlay.allocate(GRID_UNIT * 4, GRID_UNIT * 4, GL_RGBA);
+        fbo_multiply.allocate(GRID_UNIT * 4, GRID_UNIT * 4, GL_RGB);
+    } else {
+        fbo_overlay.allocate(4400, 2200, GL_RGBA);
+        fbo_multiply.allocate(4400, 2200, GL_RGB);
+    }
     
     // clear the fbos
     fbo_overlay.begin();
@@ -60,7 +62,14 @@ void ofApp::setup(){
     postits[12].setPos(ofVec2f(3460, 1507));
     
     // or set up as a grid
-    // test !@#!@#
+    // 4 x 4, 2160x2160 at 540x540
+    if(GRID) {
+        for(int i = 0; i < 13; i++) {
+            float x = (i % 4) * GRID_UNIT + GRID_UNIT/2;
+            float y = (i / 4) * GRID_UNIT + GRID_UNIT/2;
+            postits[i].setPos(ofVec2f(x, y));
+        }
+    }
     
     
     // load the post it background images into memory
@@ -94,8 +103,7 @@ void ofApp::draw(){
     fbo_overlay.end();
     
     fbo_multiply.begin();
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    ofBackground(0, 0, 0);
     fbo_multiply.end();
     
     //fbo_overlay.clear();
@@ -103,7 +111,10 @@ void ofApp::draw(){
         postits[i].draw(fbo_overlay, fbo_multiply);
     }
     
-    fbo_overlay.draw(0,0,ofGetWidth(), ofGetHeight());
+    if(GRID)
+        fbo_overlay.draw(0,0,ofGetWidth()/2, ofGetHeight());
+    else
+        fbo_overlay.draw(0,0,ofGetWidth(), ofGetHeight());
 
     overlay.publishTexture(&fbo_overlay.getTexture());
     multiply.publishTexture(&fbo_multiply.getTexture());

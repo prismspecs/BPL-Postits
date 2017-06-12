@@ -38,6 +38,7 @@ public:
     int lastNewImageID;
     
     bool debug = false;
+    bool GRID = true;
     
     //ofxThreadedImageLoader loader;
 
