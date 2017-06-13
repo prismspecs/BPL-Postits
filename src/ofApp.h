@@ -23,9 +23,10 @@ public:
     string filePath;
     
     Postit postits [13];
-    ofImage postImg [1];
-    ofImage postImgMult [1];
-    int imgID;
+    ofImage postImg [3];
+    ofImage postImgMult [3];
+    
+    int imgID = 0;
     int index = 0;
     
     ofFbo fbo_overlay, fbo_multiply;  // composite of all post-its

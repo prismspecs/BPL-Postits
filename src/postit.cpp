@@ -1,7 +1,7 @@
 #include "postit.h"
 
-#define PSIZE 550
-#define WSIZE 410   // size of writing image
+#define PSIZE 743   // should be same as grid unit from ofApp.cpp
+#define WSIZE 350   // size of writing image
 
 Postit::Postit() {
     
@@ -11,7 +11,7 @@ void Postit::setPos(ofVec2f _pos) {
     pos = _pos;
 }
 
-void Postit::setup(int imgID, string path, ofImage & imgOverlay, ofImage & imgMultiply) {
+void Postit::setup(string path, ofImage & imgOverlay, ofImage & imgMultiply) {
     fadeIn = false;
     fadeOut = true;
     

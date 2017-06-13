@@ -1,7 +1,7 @@
 #include "ofApp.h"
 #include "stdio.h"
 
-#define GRID_UNIT 540
+#define GRID_UNIT 743
 #define NUM_POSTITS 13
 
 //--------------------------------------------------------------
@@ -73,9 +73,12 @@ void ofApp::setup(){
     
     
     // load the post it background images into memory
-    for(int i = 0; i < 1; i++) {
-        postImg[i].load("p" + ofToString(i) + "-overlay.png");
-        postImgMult[i].load("p" + ofToString(i) + "-multiply.png");
+    for(int i = 0; i < 3; i++) {
+//        string fn = ofToString(i);
+//        if(i>=10)
+//            f
+        postImg[i].load("0" + ofToString(i+1) + "_img.png");
+        postImgMult[i].load("0" + ofToString(i+1) + "_shadow.png");
     }
     
 }
@@ -178,14 +181,14 @@ void ofApp::checkFolder(bool init) {
             // only setup a new post it if we arent doing this
             // for the first time
             if(!init) {
-                postits[index].setup(imgID, newFiles[i], postImg[0], postImgMult[0]);
+                postits[index].setup(newFiles[i], postImg[imgID], postImgMult[imgID]);
                 
                 index++;
                 if(index >= NUM_POSTITS) {
                     index = 0;
                 }
                 imgID++;
-                if(imgID >= NUM_POSTITS) {
+                if(imgID >= 3) {
                     imgID = 0;
                 }
             }

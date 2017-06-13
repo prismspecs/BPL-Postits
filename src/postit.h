@@ -7,7 +7,7 @@ class Postit {
     
 public:
     void setPos(ofVec2f _pos);
-    void setup(int imgID, string path, ofImage & imgOverlay, ofImage & imgMultiply);
+    void setup(string path, ofImage & imgOverlay, ofImage & imgMultiply);
     void update();
     void draw(ofFbo &fbo_overlay, ofFbo &fbo_multiply);
     
